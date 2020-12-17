@@ -1,0 +1,132 @@
+
+#@host=localhost:5000
+@host=localhost:5000
+@p_start=2020-12-16T22:00:00
+@p_end=2020-12-16T23:00:00
+@threshold=1000
+###
+GET http://{{host}}/api/simulator/mappings
+
+###
+POST http://{{host}}/api/simulator/mappings
+Content-Type: application/json
+
+{
+  "ad_unit": 4,
+  "ad_unit_country": 5,
+  "ad_unit_country_app": 6,
+  "app_hash_id": 3,
+  "latest_availability_data_id": 11,
+  "mean_revenue": 2,
+}
+
+
+###
+GET http://{{host}}/api/simulator/scenario
+
+###
+POST http://{{host}}/api/simulator/scenario
+Content-Type: application/json
+
+{
+  "data": {
+    "ad_unit": [
+      {
+        "ad_unit": "banner",
+        "net_revenue_per_million": 5.1
+      }
+    ],
+    "ad_unit_country": [
+      {
+        "ad_unit": "banner",
+        "country": "US",
+        "instances": 8141107,
+        "net_revenue_per_million": 2.1
+      }
+    ],
+    "ad_unit_country_app": [
+      {
+        "ad_unit": "video",
+        "country": "GB",
+        "instances": 4367329,
+        "name": "app2",
+        "net_revenue_per_million": 1.453569696001622
+      }
+    ],
+    "app_hash_id": [
+      {
+        "name": "foocka2"
+      }
+    ],
+    "latest_availability_data_id": [
+      {
+        "latest": "2020-12-17 11:16:14"
+      }
+    ],
+    "mean_revenue": [
+      {
+        "mean_revenue": 1.23
+      }
+    ]
+  },
+  "mapping": {
+    "ad_unit": 4,
+    "ad_unit_country": 5,
+    "ad_unit_country_app": 6,
+    "app_hash_id": 3,
+    "latest_availability_data_id": 11,
+    "mean_revenue": 2
+  }
+}
+
+###
+GET http://{{host}}/api/simulator/data
+
+
+###
+POST http://{{host}}/api/simulator/data/latest_availability_data_id
+Content-Type: application/json
+
+[
+  {
+    "latest": "2020-12-17 11:16:15"
+  }
+]
+
+
+###
+GET http://{{host}}/api/simulator/data/latest_availability_data_id
+
+
+
+###
+GET http://{{host}}/api/simulator/query_results/2
+
+###
+GET http://{{host}}/api/simulator/query_results/mean_revenue
+
+### no found by query result id
+GET http://{{host}}/api/simulator/query_results/212
+
+
+###
+POST http://{{host}}/api/queries/11/refresh
+    ?p_threshold={{threshold}}
+    &p_start={{p_start}}%2B00:00
+    &p_end={{p_end}}%2B00:00
+Content-Type: application/json
+
+{"p_threshold": {{threshold}}, "p_start": "{{p_start}}+00:00", "p_end": "{{p_end}}+00:00"}
+
+### 
+GET http://{{host}}/api/jobs/2
+
+###
+GET http://{{host}}/api/queries/2/results/2.json
+
+
+### 
+POST http://{{host}}/api/simulator/reset
+
+
+
