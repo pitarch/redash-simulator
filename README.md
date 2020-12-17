@@ -18,14 +18,39 @@ in staging.
 
 ## DEVELOPMENT
 
+- create the virtual environment
+
 ```sh
-FLASK_APP=simulator FLASK_ENV=development flask run
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
+
+- run the application
+
+```sh
+./run-simulator.sh
+```
+
+The application will accept requests at local port 5000.
 
 ## DOCKER BUILD
 
+```sh
+./build-docker.sh
+```
 
+A new image will be created with the name `axonix/redash-simulator`.
 
+## RUN
+
+* To run the docker image:
+
+```sh
+./run-docker.sh
+```
+
+By default, a docker container of the redash simulator will accept requests at port 5000.
 
 ## Endpoint Operations
 
